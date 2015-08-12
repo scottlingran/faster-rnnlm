@@ -37,7 +37,7 @@ const bool kHaveCudaSupport = false;
 const bool kHaveCudaSupport = true;
 #endif
 const int64_t kReportEveryWords = 50000;
-const OOVPolicy kOOVPolicy = kSkipSentence;
+const OOVPolicy kOOVPolicy = kConvertToUnk;
 
 // Run time learning parameters
 // Constant outside main
@@ -202,11 +202,16 @@ Real EvaluateLM(NNet* nnet, const std::string& filename, bool print_logprobs, bo
     n_words += seq_length;
     logprob_sum += sen_logprob;
     if (print_logprobs) {
-      printf("%f\n", -sen_logprob);
+      printf("logprob=%f\n", -sen_logprob);
+      printf("ppl=%f\n", pow((double)10,(sen_logprob/seq_length)));
     }
   }
 
   delete rec_layer_updater;
+
+  printf("logprobnet=%f\n", -logprob_sum);
+  printf("pplnet=%f\n", pow((double)10,(logprob_sum/n_words)));
+
   Real entropy = logprob_sum / log10(2) / n_words;
   return entropy;
 }

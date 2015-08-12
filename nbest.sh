@@ -1,8 +1,10 @@
-MODEL_FILE=ptb.100.100.txt
+MODEL_FILE=models/concat
 TEST_FILE=data/play
 
+python tokenize.py
+
 echo "rnn: logprob"
-./faster-rnnlm/rnnlm -rnnlm models/$MODEL_FILE -test $TEST_FILE -nbest -debug 0 | perl -wnE'say for /logprob= (-\d+\.\d+)/g'
+./faster-rnnlm/rnnlm -rnnlm $MODEL_FILE -test $TEST_FILE | perl -wnE'say for /logprob=(-\d+\.\d+)/g'
 
 echo "rnn: PPL"
-./faster-rnnlm/rnnlm -rnnlm models/$MODEL_FILE -test $TEST_FILE -nbest -debug 0 | perl -wnE'say for /ppl= (\d+\.\d+)/g'
+./faster-rnnlm/rnnlm -rnnlm $MODEL_FILE -test $TEST_FILE | perl -wnE'say for /ppl=(\d+\.\d+)/g'
