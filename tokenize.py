@@ -8,7 +8,7 @@ import re
 import nltk
 from nltk.tokenize import TreebankWordTokenizer
 
-vocab_10k = set(line.strip() for line in open('data/10000.txt'))
+vocab_10k = set(line.strip() for line in open('10000.txt'))
 
 tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
