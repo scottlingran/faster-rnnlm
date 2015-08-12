@@ -1,0 +1,5 @@
+eigen3
+*.o
+data/
+models/
+faster-rnnlm/rnnlm
