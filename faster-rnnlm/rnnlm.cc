@@ -209,8 +209,8 @@ Real EvaluateLM(NNet* nnet, const std::string& filename, bool print_logprobs, bo
 
   delete rec_layer_updater;
 
-  printf("logprobnet=%f\n", -logprob_sum);
-  printf("pplnet=%f\n", pow((double)10,(logprob_sum/n_words)));
+  printf("\nlogprobnet=%f\n", -logprob_sum);
+  printf("\npplnet=%f\n", pow((double)10,(logprob_sum/n_words)));
 
   Real entropy = logprob_sum / log10(2) / n_words;
   return entropy;
