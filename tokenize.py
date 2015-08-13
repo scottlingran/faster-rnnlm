@@ -2,55 +2,49 @@ from __future__ import division
 
 import os
 import sys
-import datetime
 import re
 
 import nltk
 from nltk.tokenize import TreebankWordTokenizer
 
-vocab_10k = set(line.strip() for line in open('10000.txt'))
-
 tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
+vocab = set(line.split(" ")[0] for line in open('models/concat'))
 twt = TreebankWordTokenizer()
 
-def convert(raw):
-    # Split sentences
-    sents = tokenizer.tokenize(raw.strip(), realign_boundaries=True)
 
-    # Split sentences
-    sents_tokens = []
+def process_line(line):
+    sents = tokenizer.tokenize(line.strip(), realign_boundaries=True)
+
     for sent in sents:
-        tokens = twt.tokenize(sent.lower())
-
+        sent_lower = sent.lower()
+        tokens = twt.tokenize(sent_lower)
         tokens_clean = []
         for token in tokens:
+
             # Replace numbers with <num>
             if re.search(r'[0-9]', token):
-                tokens_clean.append("<num>")
-                continue
+                token = "<num>"
 
-            # Replace >10k words with <unk>
-            if re.search(r'[a-zA-Z]$', token) and (token not in vocab_10k):
-                tokens_clean.append("<unk>")
-                continue
-
+            add_to_vocab(token)
             tokens_clean.append(token)
 
-        line_tokens = " ".join(tokens_clean)
-        sents_tokens.append(line_tokens)
-
-    lines = "\n".join(sents_tokens)
-    return lines
+        all_sents.append(tokens_clean)
 
 def main():
     lines = open("data/play").read().split("\n")
 
-    lines_cleaned = [convert(line) for line in lines]
-    lines_txt = "\n".join(lines_cleaned)
+    newfile = open("data/play", "w")
 
-    sfile = open("data/play", "w")
-    sfile.write(lines_txt)
-    sfile.close()
+    for line in lines:
+        tokens = twt.tokenize(line.lower())
+
+        for i, token in enumerate(tokens):
+            if token not in vocab:
+                tokens[i] = "<unk>"
+
+        newfile.write(" ".join(tokens) + "\n")
+
+    newfile.close()
 
 main()
