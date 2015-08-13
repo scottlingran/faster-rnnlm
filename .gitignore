@@ -1,5 +1,8 @@
-eigen3
-*.o
+
 data/
+eigen3/
+*.o
 models/
-faster-rnnlm/rnnlm
+concat
+concat.nnet
+
