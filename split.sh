@@ -1,4 +1,4 @@
-SRC=data/concatsmall.txt
+SRC=data/concat.txt
 
 n_lines=$(wc -l < $SRC)
 main=$(($n_lines / 10 * 8))

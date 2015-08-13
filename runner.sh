@@ -8,3 +8,5 @@ rm models/concat
 
 
 # ssh -v ubuntu@52.20.153.148
+
+# ./faster-rnnlm/rnnlm -rnnlm models/concat -train data/concattrain -valid data/concatvalid -hidden 1000 -threads 36
