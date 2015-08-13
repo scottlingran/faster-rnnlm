@@ -1,0 +1,6 @@
+data/
+eigen3/
+*.o
+models/
+concat
+concat.nnet
