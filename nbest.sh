@@ -1,7 +1,7 @@
-MODEL_FILE=models/concat
+MODEL_FILE=models/sents
 TEST_FILE=data/play
 
-python tokenize.py
+python prepare.py
 
 # echo "rnn: logprob"
 # ./faster-rnnlm/rnnlm -rnnlm $MODEL_FILE -test $TEST_FILE | perl -wnE'say for /logprob=(-\d+\.\d+)/g'

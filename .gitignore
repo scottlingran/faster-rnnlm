@@ -6,3 +6,4 @@ models/
 concat
 concat.nnet
 
+*.DS_Store

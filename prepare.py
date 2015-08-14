@@ -9,7 +9,7 @@ from nltk.tokenize import TreebankWordTokenizer
 
 tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
 
-vocab = set(line.split(" ")[0] for line in open('models/concat'))
+vocab = set(line.split(" ")[0] for line in open('models/sents'))
 twt = TreebankWordTokenizer()
 
 
